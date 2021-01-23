@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import {
   Paper,
   Table,
@@ -9,6 +10,31 @@ import {
   TableRow,
 } from '@material-ui/core';
 import RequestMotorcycleButton from './requestMotorcycleButton';
+
+
+function MotorcycleTableBody() {
+  const motorcicles = useSelector(s => s.availability);
+
+  return (
+    <TableBody>
+      {Object.entries(motorcicles).map(([k, v]) => (
+        <MotorcycleRow key={k} hour={k} available={v} />
+      ))}
+    </TableBody>
+  );
+}
+
+function MotorcycleRow({ hour, available }) {
+  return (
+    <TableRow>
+      <TableCell>{hour}</TableCell>
+      <TableCell align="right">{available}</TableCell>
+      <TableCell align="right">
+        <RequestMotorcycleButton />
+      </TableCell>
+    </TableRow>
+  );
+}
 
 export default function AvailableMotorciclesGrid() {
   return (
@@ -21,15 +47,7 @@ export default function AvailableMotorciclesGrid() {
             <TableCell align="right">Solicitar</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
-          <TableRow>
-            <TableCell>8:00am</TableCell>
-            <TableCell align="right">8</TableCell>
-            <TableCell align="right">
-              <RequestMotorcycleButton />
-            </TableCell>
-          </TableRow>
-        </TableBody>
+        <MotorcycleTableBody />
       </Table>
     </TableContainer>
   );
