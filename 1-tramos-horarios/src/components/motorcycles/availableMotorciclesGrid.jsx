@@ -30,7 +30,7 @@ function MotorcycleRow({ hour, available }) {
       <TableCell>{hour}</TableCell>
       <TableCell align="right">{available}</TableCell>
       <TableCell align="right">
-        <RequestMotorcycleButton />
+        <RequestMotorcycleButton hour={hour} />
       </TableCell>
     </TableRow>
   );

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button } from '@material-ui/core';
+import useOrders from '../../redux/orders/useOrders';
 
 function RequestMotorcycle({ onClick }) {
   return (
@@ -17,11 +18,10 @@ function CancelMotorcycle({ onClick }) {
   )
 }
 
-export default function RequestMotorcycleButton() {
+export default function RequestMotorcycleButton({ hour }) {
+  const { requestMotorcycle, cancelMotorcycle, isRequested } = useOrders();
 
-  const [available, setAvailable] = useState(true);
-
-  return available
-    ? <RequestMotorcycle onClick={() => setAvailable(false)} />
-    : <CancelMotorcycle onClick={() => setAvailable(true)} />
+  return isRequested(hour)
+    ? <CancelMotorcycle onClick={() => cancelMotorcycle(hour)} />
+    : <RequestMotorcycle onClick={() => requestMotorcycle(hour)} />
 }
