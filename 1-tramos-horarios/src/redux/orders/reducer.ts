@@ -11,7 +11,7 @@ function reducer(state: any = initialState, action: OrderAction) {
                 ...state,
                 [username]: {
                     ...(state[username] || {}),
-                    [hour]: 1
+                    [hour]: true
                 }
             }
         }

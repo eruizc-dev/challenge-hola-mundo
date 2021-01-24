@@ -25,6 +25,8 @@ export function LoginForm({ onSubmit = () => {} }) {
       }}
     >
       <TextField
+        required
+        helperText="No puede ser vacío"
         type='input'
         label='Usuario'
         name="username"

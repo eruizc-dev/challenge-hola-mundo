@@ -3,10 +3,15 @@ import * as Actions from './actions';
 import useAuth from '../auth/useAuth';
 
 function requestMotorcycle(username: string, hour: string, dispatch: any) {
+    if (!username)
+        throw new Error("Debe iniciar sesión");
+
     dispatch(Actions.requestMotorcycle(username, hour));
 }
 
 function cancelMotorcycle(username: string, hour: string, dispatch: any) {
+    if (!username)
+        throw new Error("Debe iniciar sesión");
     dispatch(Actions.cancelMotorcycle(username, hour));
 }
 
