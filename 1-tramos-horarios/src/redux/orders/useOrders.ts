@@ -1,28 +1,31 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import * as Actions from './actions';
 import useAuth from '../auth/useAuth';
+import { store } from '../store';
 
-function requestMotorcycle(username: string, hour: string, dispatch: any) {
+function requestMotorcycle(hour: string) {
+    const username = store.getState().auth.username;
     if (!username)
         throw new Error("Debe iniciar sesión");
 
-    dispatch(Actions.requestMotorcycle(username, hour));
+    store.dispatch(Actions.requestMotorcycle(username, hour));
 }
 
-function cancelMotorcycle(username: string, hour: string, dispatch: any) {
+function cancelMotorcycle(hour: string) {
+    const username = store.getState().auth.username;
     if (!username)
         throw new Error("Debe iniciar sesión");
-    dispatch(Actions.cancelMotorcycle(username, hour));
+
+    store.dispatch(Actions.cancelMotorcycle(username, hour));
 }
 
 export default function useOrders() {
-    const dispatch = useDispatch();
     const orders = useSelector((s: any) => s.orders);
     const { username } = useAuth();
 
     return {
-        requestMotorcycle: (hour: string) => requestMotorcycle(username, hour, dispatch),
-        cancelMotorcycle: (hour: string) => cancelMotorcycle(username, hour, dispatch),
+        requestMotorcycle: (hour: string) => requestMotorcycle(hour),
+        cancelMotorcycle: (hour: string) => cancelMotorcycle(hour),
         isRequested: (hour: string) => !!(orders[username] && orders[username][hour]),
     }
 }

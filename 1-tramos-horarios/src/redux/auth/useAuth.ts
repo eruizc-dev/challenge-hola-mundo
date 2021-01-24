@@ -2,12 +2,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as Actions from './actions';
 
 function login(username: string, dispatch: any) {
-    window.localStorage.setItem('username', username);
     dispatch(Actions.login(username));
 }
 
 function logout(dispatch: any) {
-    window.localStorage.removeItem('username');
     dispatch(Actions.logout());
 }
 

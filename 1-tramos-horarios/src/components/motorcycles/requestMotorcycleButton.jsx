@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Snackbar } from '@material-ui/core';
 import Alert from '../../components/alert';
 import useOrders from '../../redux/orders/useOrders';
