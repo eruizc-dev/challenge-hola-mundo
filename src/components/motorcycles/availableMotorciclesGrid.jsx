@@ -10,21 +10,23 @@ import {
   TableRow,
 } from '@material-ui/core';
 import RequestMotorcycleButton from './requestMotorcycleButton';
-
+import useOrders from '../../redux/orders/useOrders'
 
 function MotorcycleTableBody() {
   const motorcicles = useSelector(s => s.availability);
 
   return (
     <TableBody>
-      {Object.entries(motorcicles).map(([k, v]) => (
-        <MotorcycleRow key={k} hour={k} available={v} />
+      {Object.entries(motorcicles).map(([k]) => (
+        <MotorcycleRow key={k} hour={k} />
       ))}
     </TableBody>
   );
 }
 
-function MotorcycleRow({ hour, available }) {
+function MotorcycleRow({ hour }) {
+  const { available } = useOrders(hour);
+
   return (
     <TableRow>
       <TableCell>{hour}</TableCell>

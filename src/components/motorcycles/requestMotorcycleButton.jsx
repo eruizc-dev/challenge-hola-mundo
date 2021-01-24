@@ -19,12 +19,23 @@ function CancelMotorcycle({ onClick }) {
   )
 }
 
+function Disabled() {
+  return (
+    <Button variant='contained' disabled>
+      AGOTADO
+    </Button>
+  )
+}
+
 function RequestCancelMotorcycle({ hour, onRequestMotorcycle, onCancelMotorcycle }) {
-  const { isRequested } = useOrders();
+  const { isRequested, available } = useOrders(hour);
 
   return isRequested(hour)
     ? <CancelMotorcycle onClick={onCancelMotorcycle} />
-    : <RequestMotorcycle onClick={onRequestMotorcycle} />
+    : (available > 0
+      ? <RequestMotorcycle onClick={onRequestMotorcycle} />
+      : <Disabled />
+    );
 }
 
 export default function RequestMotorcycleButton({ hour }) {
